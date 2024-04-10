@@ -6,15 +6,14 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:32:10 by cstoia            #+#    #+#             */
-/*   Updated: 2024/04/09 19:03:11 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/04/10 09:57:17 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
-#include <stdio.h>
 #include <unistd.h>
 
-int	ft_atoi(char *str)
+static int	ft_atoi(char *str)
 {
 	int	i;
 	int	sign;
@@ -39,7 +38,7 @@ int	ft_atoi(char *str)
 	return (sign * result);
 }
 
-void	ft_sendchar(int server_pid, char *str)
+static void	ft_sendchar(int server_pid, char *str)
 {
 	int		i;
 	char	c;
@@ -56,7 +55,7 @@ void	ft_sendchar(int server_pid, char *str)
 				kill(server_pid, SIGUSR1);
 			else
 				kill(server_pid, SIGUSR2);
-			usleep(100);
+			usleep(1000);
 			i--;
 		}
 	}
@@ -67,14 +66,12 @@ int	main(int argc, char **argv)
 	int	server_pid;
 	int	i;
 
-	i = 0;
-	if (argc != 3)
-		return (printf("Incorrect number of arguments\n"));
+	i = 2;
 	server_pid = ft_atoi(argv[1]);
-	if (server_pid <= 0 || (kill(server_pid, 0) == -1))
+	while (i < argc)
 	{
-		printf("Invalid server PID\n");
+		ft_sendchar(server_pid, argv[i]);
+		i++;
 	}
-	ft_sendchar(server_pid, argv[2]);
 	return (0);
 }
