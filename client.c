@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:32:10 by cstoia            #+#    #+#             */
-/*   Updated: 2024/04/09 11:27:54 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/04/09 19:03:11 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,43 +39,6 @@ int	ft_atoi(char *str)
 	return (sign * result);
 }
 
-// void	ft_sendbit(int server_pid, char c)
-// {
-// 	int	i;
-// 	static int	bit;
-
-// 	i = 7;
-// 	while (i >= 0)
-// 	{
-// 		bit = (c >> i) & 1;
-// 		if (bit == 1)
-// 		{
-// 			kill(server_pid, SIGUSR1);
-// 			printf("1");
-// 		}
-// 		else if (bit == 0)
-// 		{
-// 			kill(server_pid, SIGUSR2);
-// 			printf("0");
-// 		}
-// 		i--;
-// 		usleep(50000);
-// 	}
-// }
-
-// void	ft_sendchar(int server_pid, char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (str[i] != '\0')
-// 	{
-// 		ft_sendbit(server_pid, str[i]);
-// 		i++;
-// 	}
-// 	ft_sendbit(server_pid, '\0');
-// }
-
 void	ft_sendchar(int server_pid, char *str)
 {
 	int		i;
@@ -93,7 +56,7 @@ void	ft_sendchar(int server_pid, char *str)
 				kill(server_pid, SIGUSR1);
 			else
 				kill(server_pid, SIGUSR2);
-			usleep(50000);
+			usleep(100);
 			i--;
 		}
 	}
